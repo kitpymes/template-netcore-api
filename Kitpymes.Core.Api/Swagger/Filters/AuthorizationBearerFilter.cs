@@ -1,13 +1,24 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Collections.Generic;
-using System.Linq;
+﻿// -----------------------------------------------------------------------
+// <copyright file="AuthorizationBearerFilter.cs" company="Kitpymes">
+// Copyright (c) Kitpymes. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project docs folder for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Kitpymes.Core.Api
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.OpenApi.Models;
+    using Swashbuckle.AspNetCore.SwaggerGen;
+
+    /// <summary>
+    /// Filtro para la autorización.
+    /// </summary>
     public class AuthorizationBearerFilter : IOperationFilter
     {
+        /// <inheritdoc/>
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             var authorizeAttributes = context.GetControllerAndActionAttributes<AuthorizeAttribute>();
@@ -37,11 +48,11 @@ namespace Kitpymes.Core.Api
                                 {
                                     Type = ReferenceType.SecurityScheme,
 
-                                    Id = "Bearer"
-                                }
+                                    Id = "Bearer",
+                                },
                             },
                             policies
-                        }
+                        },
                     });
                 }
             }

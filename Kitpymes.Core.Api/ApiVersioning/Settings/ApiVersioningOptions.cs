@@ -33,7 +33,7 @@ namespace Kitpymes.Core.Api
         /// Obtiene o establece un valor que indica el servicio esta habilitado.
         /// </summary>
         /// <param name="enabled">Habilita o desabilita.</param>
-        /// <returns>EncryptorOptions.</returns>
+        /// <returns>ApiVersioningOptions.</returns>
         public ApiVersioningOptions WithEnabled(bool enabled = true)
         {
             ApiVersioningSettings.Enabled = enabled;

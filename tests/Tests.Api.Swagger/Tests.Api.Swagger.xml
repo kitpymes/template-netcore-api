@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tests.Api.Swagger</name>
+    </assembly>
+    <members>
+        <member name="T:Tests.Api.Swagger.ApiVersioningConventions">
+            <summary>
+            Configuración de las versiones de los endpoints.
+            </summary>
+        </member>
+        <member name="P:Tests.Api.Swagger.ApiVersioningConventions.Get">
+            <summary>
+            Obtiene las versiones de los endponits.
+            </summary>
+        </member>
+        <member name="T:Tests.Api.Swagger.Controllers.ApiControllerBase`1">
+            <summary>
+            Constrolador de la api.
+            </summary>
+            <typeparam name="TController"></typeparam>
+        </member>
+        <member name="M:Tests.Api.Swagger.Controllers.ApiControllerBase`1.Result(System.Func{System.Object},System.Func{System.ValueTuple{System.Boolean,System.String}[]})">
+            <summary>
+            Resultado de la Api.
+            </summary>
+            <param name="Ok"></param>
+            <param name="Errors"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tests.Api.Swagger.Controllers.v1.ValuesController">
+            <summary>
+            Controlador de la V1 de la api.
+            </summary>
+        </member>
+        <member name="M:Tests.Api.Swagger.Controllers.v1.ValuesController.Get">
+            <summary>
+            GET api/values
+            </summary>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="M:Tests.Api.Swagger.Controllers.v1.ValuesController.Get(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            GET api/values/5
+            here id is 5
+            </summary>
+            <param name="id">int</param>
+            <param name="cancellation">CancellationToken</param>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="M:Tests.Api.Swagger.Controllers.v1.ValuesController.Post(Tests.Api.Swagger.AddProductModel)">
+            <summary>
+            POST api/values
+            </summary>
+            <param name="model">[FromBody] Product </param>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="M:Tests.Api.Swagger.Controllers.v1.ValuesController.Put(System.Int32,Tests.Api.Swagger.EditProductModel)">
+            <summary>
+            PUT api/values/5
+            </summary>
+            <param name="id">int</param>
+            <param name="model">[FromBody] Product</param>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="M:Tests.Api.Swagger.Controllers.v1.ValuesController.DeleteAsync(System.Int32)">
+            <summary>
+            DELETE api/values/5
+            </summary>
+            <param name="id">int</param>
+        </member>
+        <member name="T:Tests.Api.Swagger.Controllers.v2.ValuesController">
+            <summary>
+            Controlador de la V2 de la api.
+            </summary>
+        </member>
+        <member name="M:Tests.Api.Swagger.Controllers.v2.ValuesController.Get(System.Threading.CancellationToken)">
+            <summary>
+             GET api/values
+            </summary>
+            <param name="cancellation"><see cref="T:System.Threading.CancellationToken"/></param>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="M:Tests.Api.Swagger.Controllers.v2.ValuesController.Get(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            GET api/values/5
+            here id is 5
+            </summary>
+            <param name="id">int</param>
+            <param name="cancellation">CancellationToken</param>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="M:Tests.Api.Swagger.Controllers.v2.ValuesController.Post(Tests.Api.Swagger.AddProductModel)">
+            <summary>
+            POST api/values
+            </summary>
+            <param name="model">[FromBody] Product </param>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="M:Tests.Api.Swagger.Controllers.v2.ValuesController.Put(System.Int32,Tests.Api.Swagger.EditProductModel)">
+            <summary>
+            PUT api/values/5
+            </summary>
+            <param name="id">int</param>
+            <param name="model">[FromBody] Product</param>
+            <returns>IActionResult</returns>
+        </member>
+        <member name="M:Tests.Api.Swagger.Controllers.v2.ValuesController.DeleteAsync(System.Int32)">
+            <summary>
+            DELETE api/values/5
+            </summary>
+            <param name="id">int</param>
+        </member>
+        <member name="T:Tests.Api.Swagger.AddProductModel">
+            <summary>
+            Modelo para agregar un producto.
+            </summary>
+        </member>
+        <member name="P:Tests.Api.Swagger.AddProductModel.Name">
+            <summary>
+            The name of the product
+            </summary>
+            <example>Pan</example>
+        </member>
+        <member name="T:Tests.Api.Swagger.EditProductModel">
+            <summary>
+            Modelo para editar un producto.
+            </summary>
+        </member>
+        <member name="T:Tests.Api.Swagger.Product">
+            <summary>
+            Clase de productos.
+            </summary>
+        </member>
+        <member name="P:Tests.Api.Swagger.Product.List">
+            <summary>
+            Lista de productos.
+            </summary>
+        </member>
+        <member name="P:Tests.Api.Swagger.Product.Id">
+            <summary>
+            The id of the product
+            </summary>
+            <example>92929292929</example>
+        </member>
+        <member name="P:Tests.Api.Swagger.Product.Name">
+            <summary>
+            The name of the product
+            </summary>
+            <example>Pan</example>
+        </member>
+        <member name="P:Tests.Api.Swagger.Product.CreatedDate">
+            <summary>
+            The date created product
+            </summary>
+            <example>Pan</example>
+        </member>
+        <member name="T:Tests.Api.Swagger.Program">
+            <summary>
+            Inicia el programa.
+            </summary>
+        </member>
+        <member name="M:Tests.Api.Swagger.Program.Main(System.String[])">
+            <summary>
+            Inicia la api.
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Tests.Api.Swagger.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Crea el host.
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Tests.Api.Swagger.Startup">
+            <summary>
+            Clase de configuración de la app.
+            </summary>
+        </member>
+        <member name="M:Tests.Api.Swagger.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor de la clase.
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:Tests.Api.Swagger.Startup.Configuration">
+            <summary>
+            Obtiene la configuración del app settings.
+            </summary>
+        </member>
+        <member name="M:Tests.Api.Swagger.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            /// Configuración de los servicios de la app.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Tests.Api.Swagger.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Configuración de la app.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>

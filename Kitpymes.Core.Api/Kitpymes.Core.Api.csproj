@@ -12,7 +12,7 @@
   </ItemGroup>
     
   <ItemGroup>
-    <PackageReference Include="Kitpymes.Core.Shared" Version="1.1.4" />
+    <PackageReference Include="Kitpymes.Core.Shared" Version="1.1.8" />
     <PackageReference Include="Kitpymes.Core.Security" Version="1.0.1" />
     <PackageReference Include="Kitpymes.Core.Entities" Version="1.0.1" />
   </ItemGroup>

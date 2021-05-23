@@ -8,72 +8,130 @@
 namespace Kitpymes.Core.Api
 {
     using System;
+    using System.IO;
     using Kitpymes.Core.Shared;
     using Microsoft.AspNetCore.Mvc.ApiExplorer;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.OpenApi.Models;
     using Swashbuckle.AspNetCore.SwaggerGen;
 
+    /*
+       Clase de extensión SwaggerServiceCollectionExtensions
+       Contiene las extensiones para los servicios de swagger
+    */
+
+    /// <summary>
+    /// Clase de extensión <c>SwaggerServiceCollectionExtensions</c>.
+    /// Contiene las extensiones para los servicios de swagger.
+    /// </summary>
+    /// <remarks>
+    /// <para>En esta clase se pueden agregar todas las extensiones para los servicios de swagger.</para>
+    /// </remarks>
     public static class SwaggerServiceCollectionExtensions
     {
+        /// <summary>
+        /// Carga los servicios de swagger.
+        /// </summary>
+        /// <param name="services">Colección de servicios.</param>
+        /// <param name="options">Configuración del servicio de swagger.</param>
+        /// <returns>IServiceCollection.</returns>
         public static IServiceCollection LoadSwagger(
            this IServiceCollection services,
-           Action<SwaggerSettings>? settings = null)
-        => services.LoadSwagger(settings.ToConfigureOrDefault());
+           Action<SwaggerOptions> options)
+        => services.LoadSwagger(options.ToConfigureOrDefault().SwaggerSettings);
 
+        /// <summary>
+        /// Carga los servicios de swagger.
+        /// </summary>
+        /// <param name="services">Colección de servicios.</param>
+        /// <param name="settings">Configuración del servicio de swagger.</param>
+        /// <returns>IServiceCollection.</returns>
         public static IServiceCollection LoadSwagger(
             this IServiceCollection services,
             SwaggerSettings settings)
         {
-            services
-                .AddSwaggerGen(setupAction =>
-                {
-                    setupAction.IgnoreObsoleteActions();
+            if (settings?.Enabled == true)
+            {
+                services
+                   .AddSwaggerGen(setupAction =>
+                   {
+                       setupAction.IgnoreObsoleteActions();
 
-                    setupAction.IgnoreObsoleteProperties();
+                       setupAction.IgnoreObsoleteProperties();
 
-                    setupAction.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                    {
-                        Name = "Authorization",
+                       setupAction.AddSecurityDefinition(settings.Security.Title, GetOpenApiSecurityScheme(settings));
 
-                        Scheme = "Bearer",
+                       var apiVersionDescriptionProvider = services.ToService<IApiVersionDescriptionProvider>();
 
-                        In = ParameterLocation.Header,
+                       if (apiVersionDescriptionProvider != null)
+                       {
+                           AddSwaggerDocs(setupAction, settings, apiVersionDescriptionProvider);
+                       }
 
-                        Type = SecuritySchemeType.ApiKey,
+                       var xmlComments = GetXmlComments(settings);
 
-                        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
-                    });
+                       if (xmlComments != null)
+                       {
+                           setupAction.IncludeXmlComments(xmlComments);
+                       }
 
-                    var apiVersionDescriptionProvider = services.ToService<IApiVersionDescriptionProvider>();
+                       setupAction.OperationFilter<StatusCodesFilter>();
 
-                    AddSwaggerDocs(setupAction, settings, apiVersionDescriptionProvider);
+                       setupAction.OperationFilter<AuthorizationBearerFilter>();
 
-                    AddXmlComments(setupAction, settings);
+                       setupAction.OperationFilter<DefaultValuesFilter>();
 
-                    setupAction.OperationFilter<StatusCodesFilter>();
+                       setupAction.DocumentFilter<ApiExplorerDocumentFilter>();
 
-                    setupAction.OperationFilter<AuthorizationBearerFilter>();
-
-                    setupAction.OperationFilter<DefaultValuesFilter>();
-
-                    setupAction.DocumentFilter<ApiExplorerDocumentFilter>();
-
-                    setupAction.DocumentFilter<YamlDocumentFilter>();
-                });
+                       setupAction.DocumentFilter<YamlDocumentFilter>();
+                   });
+            }
 
             return services;
         }
 
-        private static void AddXmlComments(SwaggerGenOptions setupAction, SwaggerSettings settings)
+        private static OpenApiSecurityScheme GetOpenApiSecurityScheme(SwaggerSettings settings)
         {
-            foreach (var xmlPath in settings.XmlCommentsPaths)
+            var openApiSecurityScheme = new OpenApiSecurityScheme
             {
-                setupAction.IncludeXmlComments(xmlPath);
+                Name = settings.Security.Name,
+
+                Scheme = settings.Security.Scheme,
+
+                Description = settings.Security.Description,
+            };
+
+            if (settings.Security.ParameterLocation.HasValue)
+            {
+                openApiSecurityScheme.In = settings.Security.ParameterLocation.Value.ToEnum<ParameterLocation>();
             }
+
+            if (settings.Security.SecurityType.HasValue)
+            {
+                openApiSecurityScheme.Type = settings.Security.SecurityType.Value.ToEnum<SecuritySchemeType>();
+            }
+
+            return openApiSecurityScheme;
         }
 
-        private static void AddSwaggerDocs(SwaggerGenOptions setupAction, SwaggerSettings settings, IApiVersionDescriptionProvider? apiVersionDescriptionProvider)
+        private static string? GetXmlComments(SwaggerSettings settings)
+        {
+            if (settings.XmlComments != null)
+            {
+                var xmlFile = $"{settings.XmlComments.GetName().Name}.xml";
+
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                if (File.Exists(xmlPath))
+                {
+                    return xmlPath;
+                }
+            }
+
+            return null;
+        }
+
+        private static void AddSwaggerDocs(SwaggerGenOptions setupAction, SwaggerSettings settings, IApiVersionDescriptionProvider apiVersionDescriptionProvider)
         {
             var info = new OpenApiInfo()
             {
@@ -102,22 +160,19 @@ namespace Kitpymes.Core.Api
                 },
             };
 
-            if (apiVersionDescriptionProvider != null)
+            foreach (var apiVersionDescription in apiVersionDescriptionProvider.ApiVersionDescriptions)
             {
-                foreach (var apiVersionDescription in apiVersionDescriptionProvider.ApiVersionDescriptions)
+                if (string.IsNullOrWhiteSpace(info.Version))
                 {
-                    if (string.IsNullOrWhiteSpace(info.Version))
-                    {
-                        info.Version = apiVersionDescription.ApiVersion.ToString();
-                    }
-
-                    if (apiVersionDescription.IsDeprecated)
-                    {
-                        info.Description += " - DEPRECATED";
-                    }
-
-                    setupAction.SwaggerDoc(apiVersionDescription.GroupName, info);
+                    info.Version = apiVersionDescription.ApiVersion.ToString();
                 }
+
+                if (apiVersionDescription.IsDeprecated)
+                {
+                    info.Description += " - DEPRECATED";
+                }
+
+                setupAction.SwaggerDoc(apiVersionDescription.GroupName, info);
             }
         }
     }

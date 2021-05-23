@@ -12,31 +12,68 @@ namespace Kitpymes.Core.Api
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.SpaServices.AngularCli;
 
+    /*
+        Clase de extensión SpaApplicationBuilderExtensions
+        Contiene las extensiones para la configuración de los servicios de las applicaciones de una sola página
+    */
+
+    /// <summary>
+    /// Clase de extensión <c>SpaApplicationBuilderExtensions</c>.
+    /// Contiene las extensiones para la configuración de los servicios de las applicaciones de una sola página.
+    /// </summary>
+    /// <remarks>
+    /// <para>En esta clase se pueden agregar todas las extensiones para la configuración de los servicios de las applicaciones de una sola página.</para>
+    /// </remarks>
     public static class SpaApplicationBuilderExtensions
     {
+        /// <summary>
+        /// Carga la configuración de una aplicación de una sola página o SPA.
+        /// </summary>
+        /// <param name="application">Define una clase que proporciona los mecanismos para configurar la solicitud de una aplicación.</param>
+        /// <param name="options">Configuración del servicio.</param>
+        /// <returns>IApplicationBuilder.</returns>
         public static IApplicationBuilder LoadSpa(
            this IApplicationBuilder application,
-           Action<SpaSettings>? settings)
-       => application.LoadSpa(settings.ToConfigureOrDefault());
+           Action<SpaOptions> options)
+        => application.LoadSpa(options.ToConfigureOrDefault().SpaSettings);
 
+        /// <summary>
+        /// Carga la configuración de una aplicación de una sola página o SPA.
+        /// </summary>
+        /// <param name="application">Define una clase que proporciona los mecanismos para configurar la solicitud de una aplicación.</param>
+        /// <param name="settings">Configuración del servicio.</param>
+        /// <returns>IApplicationBuilder.</returns>
         public static IApplicationBuilder LoadSpa(
            this IApplicationBuilder application,
            SpaSettings settings)
         {
-            application.UseSpa(configuration =>
+            if (settings.Enabled == true)
             {
-                configuration.Options.SourcePath = settings.SourcePath;
+                SpaBaseSettings? baseSettings = null;
 
-                if (settings.EnabledAngular.HasValue && settings.EnabledAngular.Value)
+                if (settings.AngularSettings?.Enabled == true)
                 {
-                    configuration.UseAngularCliServer(settings.NpmScript);
+                    baseSettings = settings.AngularSettings;
                 }
 
-                if (settings.EnabledProxyToSpaDevelopmentServe.HasValue && settings.EnabledProxyToSpaDevelopmentServe.Value)
+                if (baseSettings != null)
                 {
-                    configuration.UseProxyToSpaDevelopmentServer(settings.ProxyBaseUri);
+                    application.UseSpa(configuration =>
+                    {
+                        configuration.Options.SourcePath = baseSettings?.SourcePath;
+
+                        if (!string.IsNullOrWhiteSpace(baseSettings?.NpmScript))
+                        {
+                            configuration.UseAngularCliServer(baseSettings?.NpmScript);
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(baseSettings?.BaseUri))
+                        {
+                            configuration.UseProxyToSpaDevelopmentServer(baseSettings?.BaseUri);
+                        }
+                    });
                 }
-            });
+            }
 
             return application;
         }

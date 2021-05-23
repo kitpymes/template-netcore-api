@@ -102,29 +102,29 @@ namespace Kitpymes.Core.Api
             if (config.Enabled == true)
             {
                 services
-              .AddApiVersioning(options =>
-              {
-                  options.DefaultApiVersion = new ApiVersion(config.MajorVersion!.Value, config.MinorVersion!.Value);
-
-                  options.AssumeDefaultVersionWhenUnspecified = config.AssumeDefaultVersionWhenUnspecified!.Value;
-
-                  options.ApiVersionReader = config.ApiVersionReader!;
-
-                  options.ReportApiVersions = config.ReportApiVersions!.Value;
-
-                  if (config.Conventions != null)
+                  .AddApiVersioning(options =>
                   {
-                      options.Conventions = config.Conventions;
-                  }
-              })
-              .AddVersionedApiExplorer(options =>
-              {
-                  options.AssumeDefaultVersionWhenUnspecified = config.AssumeDefaultVersionWhenUnspecified!.Value;
+                      options.DefaultApiVersion = new ApiVersion(config.MajorVersion!.Value, config.MinorVersion!.Value);
 
-                  options.GroupNameFormat = config.GroupNameFormat!;
+                      options.AssumeDefaultVersionWhenUnspecified = config.AssumeDefaultVersionWhenUnspecified!.Value;
 
-                  options.SubstituteApiVersionInUrl = config.SubstituteApiVersionInUrl!.Value;
-              });
+                      options.ApiVersionReader = config.ApiVersionReader!;
+
+                      options.ReportApiVersions = config.ReportApiVersions!.Value;
+
+                      if (config.Conventions != null)
+                      {
+                          options.Conventions = config.Conventions;
+                      }
+                  })
+                  .AddVersionedApiExplorer(options =>
+                  {
+                      options.AssumeDefaultVersionWhenUnspecified = config.AssumeDefaultVersionWhenUnspecified!.Value;
+
+                      options.GroupNameFormat = config.GroupNameFormat!;
+
+                      options.SubstituteApiVersionInUrl = config.SubstituteApiVersionInUrl!.Value;
+                  });
             }
 
             return services;

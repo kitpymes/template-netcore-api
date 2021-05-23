@@ -1,32 +1,47 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
-using YamlDotNet.Serialization.TypeInspectors;
+﻿// -----------------------------------------------------------------------
+// <copyright file="YamlDocumentFilter.cs" company="Kitpymes">
+// Copyright (c) Kitpymes. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project docs folder for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Kitpymes.Core.Api
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.OpenApi.Models;
+    using Swashbuckle.AspNetCore.SwaggerGen;
+    using YamlDotNet.Serialization;
+    using YamlDotNet.Serialization.NamingConventions;
+    using YamlDotNet.Serialization.TypeInspectors;
+
+    /// <summary>
+    /// Filtro para la documentación Yaml.
+    /// </summary>
     public sealed class YamlDocumentFilter : IDocumentFilter
     {
-        private IWebHostEnvironment HostingEnvironment { get; }
-
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="YamlDocumentFilter"/>.
+        /// </summary>
+        /// <param name="hostingEnvironment">Proporciona información sobre el entorno de alojamiento web que se ejecuta una aplicación.</param>
         public YamlDocumentFilter(IWebHostEnvironment hostingEnvironment)
         {
             HostingEnvironment = hostingEnvironment;
         }
 
+        private IWebHostEnvironment HostingEnvironment { get; }
+
+        /// <inheritdoc/>
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
             try
             {
                 var builder = new SerializerBuilder();
 
-                builder.WithNamingConvention(new CamelCaseNamingConvention());
+                builder.WithNamingConvention(CamelCaseNamingConvention.Instance);
 
                 builder.WithTypeInspector(innerInspector => new PropertiesIgnoreTypeInspector(innerInspector));
 
@@ -62,7 +77,7 @@ namespace Kitpymes.Core.Api
                 this.typeInspector = typeInspector;
             }
 
-            public override IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container)
+            public override IEnumerable<IPropertyDescriptor> GetProperties(Type type, object? container)
             {
                 return typeInspector.GetProperties(type, container).Where(p => p.Name != "extensions" && p.Name != "operation-id");
             }

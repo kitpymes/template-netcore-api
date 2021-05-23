@@ -7,86 +7,46 @@
 
 namespace Kitpymes.Core.Api
 {
+    /*
+      Clase de configuración SpaSettings
+      Contiene las propiedades para la configuración de las applicaciones de una sola página
+    */
+
+    /// <summary>
+    /// Clase de configuración <c>SpaSettings</c>.
+    /// Contiene las propiedades para la configuración de las applicaciones de una sola página.
+    /// </summary>
+    /// <remarks>
+    /// <para>En esta clase se pueden agregar todas las propiedades para las applicaciones de una sola página.</para>
+    /// </remarks>
     public class SpaSettings
     {
-        private bool _enabledAngular, _proxyToSpaDevelopmentServe = false;
+        /// <summary>
+        /// Valor por defecto que indica si esta habilitado el servicio.
+        /// </summary>
+        public const bool DefaultEnabled = false;
 
-        private string 
-            _rootPath = "Frontend", 
-            _sourcePath = "dist", 
-            _npmScript = "start", 
-            _proxyBaseUri = "https://localhost:4200";
+        private bool _enabled = DefaultEnabled;
 
-        public bool? EnabledAngular
+        /// <summary>
+        /// Obtiene o establece un valor que indica el servicio esta habilitado.
+        /// <para><strong>Default:</strong> <see cref="DefaultEnabled"/> = false.</para>
+        /// </summary>
+        public bool? Enabled
         {
-            get => _enabledAngular;
+            get => _enabled;
             set
             {
                 if (value.HasValue)
                 {
-                    _enabledAngular = value.Value;
+                    _enabled = value.Value;
                 }
             }
         }
 
-        public bool? EnabledProxyToSpaDevelopmentServe
-        {
-            get => _proxyToSpaDevelopmentServe;
-            set
-            {
-                if (value.HasValue)
-                {
-                    _proxyToSpaDevelopmentServe = value.Value;
-                }
-            }
-        }
-
-        public string? RootPath
-        {
-            get => _rootPath; 
-            set
-            {
-                if (!string.IsNullOrWhiteSpace(value))
-                {
-                    _rootPath = value;
-                }
-            }
-        }
-
-        public string? SourcePath
-        {
-            get => _sourcePath; 
-            set
-            {
-                if (!string.IsNullOrWhiteSpace(value))
-                {
-                    _sourcePath = value;
-                }
-            }
-        }
-
-        public string? NpmScript
-        {
-            get => _npmScript; 
-            set
-            {
-                if (!string.IsNullOrWhiteSpace(value))
-                {
-                    _npmScript = value;
-                }
-            }
-        }
-
-        public string? ProxyBaseUri
-        {
-            get => _proxyBaseUri; 
-            set
-            {
-                if (!string.IsNullOrWhiteSpace(value))
-                {
-                    _proxyBaseUri = value;
-                }
-            }
-        }
+        /// <summary>
+        /// Obtiene o establece la configuración de angular.
+        /// </summary>
+        public AngularSettings? AngularSettings { get; set; }
     }
 }

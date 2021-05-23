@@ -12,7 +12,7 @@
         <Owners>Kitpymes</Owners>
         <Title>Kitpymes.Core.Api</Title>
         <Copyright>Copyright © $([System.DateTime]::Now.Year) by Kitpymes and Contributors. All rights reserved.</Copyright>
-        <Description>ApiVersion, Spa, Swagger.</Description>
+        <Description>Extensiones y utilidades comunes compartidas en los proyectos.</Description>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <PackageLicenseType>file</PackageLicenseType>
@@ -21,7 +21,7 @@
         <PackageReleaseNotes>https://github.com/kitpymes/template-netcore-api/tree/master/docs/RELEASE_NOTES.txt</PackageReleaseNotes>
         <RepositoryUrl>https://github.com/kitpymes/template-netcore-api</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageTags>ApiVersion, Spa, Swagger</PackageTags>
+        <PackageTags>Extensions, Extensiones, Utilities, Util, Utilidades, Api, Common</PackageTags>
         <PackageOutputPath>$(SolutionDir)docs\packages\$(Version)</PackageOutputPath>
       </PropertyGroup>
 
