@@ -60,7 +60,6 @@ namespace Kitpymes.Core.Api
                     .ConfigureWebHostDefaults(builder =>
                     {
                         builder
-                            .CaptureStartupErrors(true)
                             .ConfigureLogging((context, logging) =>
                             {
                                 logging.ClearProviders()
