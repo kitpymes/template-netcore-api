@@ -1,2 +1,5 @@
+# v.1.0.1
+- Se actualiza el proyecto de Host.
+
 # v.1.0.0
 - Se genera la primera versión del paquete del proyecto.

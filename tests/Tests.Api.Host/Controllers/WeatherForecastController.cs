@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Kitpymes.Core.Logger;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace Tests.Api.Host.Controllers
 {
@@ -16,24 +15,20 @@ namespace Tests.Api.Host.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
-
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            var logger = Log
+               .UseSerilog(serilog => serilog.AddFile("Logs/WeatherForecast_.log"))
+               .CreateLogger(nameof(WeatherForecast));
+
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+
+            var ex = new Exception("NEW CUSTOM EXCEPTION !!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+            logger.Error(ex);
+
+            throw ex;
         }
     }
 }

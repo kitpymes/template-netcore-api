@@ -1,5 +1,4 @@
-﻿{
-  "$schema": "http://json.schemastore.org/launchsettings.json",
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -8,15 +7,34 @@
       "sslPort": 44337
     }
   },
-  "profiles": {
-    "Tests.Api.Host": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "weatherforecast",
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+    "profiles": {
+        "Tests.Api.Host.Simple": {
+            "commandName": "Project",
+            "commandLineArgs": "Simple",
+            "launchBrowser": true,
+            "launchUrl": "WeatherForecast",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        "Tests.Api.Host.Default": {
+            "commandName": "Project",
+            "commandLineArgs": "Default",
+            "launchUrl": "WeatherForecast",
+            "launchBrowser": true,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        "Tests.Api.Host.Custom": {
+            "commandName": "Project",
+            "commandLineArgs": "Custom",
+            "launchUrl": "WeatherForecast",
+            "launchBrowser": true,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        }
     }
-  }
 }
