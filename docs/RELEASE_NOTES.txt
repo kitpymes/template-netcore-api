@@ -1,3 +1,6 @@
+# v.1.0.3
+- Se agrega el proyecto Result, para devolver resultados de las apis.
+
 # v.1.0.2
 - Se actualiza el proyecto de Host, se remueve "CaptureStartupErrors()" por si ocurre un error al inicio del host, este pueda propagarse y asi poder guardarse en el archivo.
 

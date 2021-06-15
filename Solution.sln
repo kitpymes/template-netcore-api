@@ -52,7 +52,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Api.Swagger", "tests\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Api.ApiVersioning", "tests\Tests.Api.ApiVersioning\Tests.Api.ApiVersioning.csproj", "{D6FE25CB-B3CD-4703-84F9-4088C16BA8D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Api.Spa.Angular", "tests\Tests.Api.Spa.Angular\Tests.Api.Spa.Angular.csproj", "{E7EF1B14-B8E9-4F11-BF01-7477DA7B8FDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Api.Spa.Angular", "tests\Tests.Api.Spa.Angular\Tests.Api.Spa.Angular.csproj", "{E7EF1B14-B8E9-4F11-BF01-7477DA7B8FDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Api.Result", "tests\Tests.Api.Result\Tests.Api.Result.csproj", "{40C6DC04-48B4-47E9-A769-8E162F858181}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +86,10 @@ Global
 		{E7EF1B14-B8E9-4F11-BF01-7477DA7B8FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7EF1B14-B8E9-4F11-BF01-7477DA7B8FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7EF1B14-B8E9-4F11-BF01-7477DA7B8FDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40C6DC04-48B4-47E9-A769-8E162F858181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40C6DC04-48B4-47E9-A769-8E162F858181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40C6DC04-48B4-47E9-A769-8E162F858181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40C6DC04-48B4-47E9-A769-8E162F858181}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +105,7 @@ Global
 		{BB95AD6B-FDB7-44C9-8ACA-F47F20E05127} = {F1874BEA-B196-4438-A1AF-4D5F2A489856}
 		{D6FE25CB-B3CD-4703-84F9-4088C16BA8D2} = {F1874BEA-B196-4438-A1AF-4D5F2A489856}
 		{E7EF1B14-B8E9-4F11-BF01-7477DA7B8FDC} = {F1874BEA-B196-4438-A1AF-4D5F2A489856}
+		{40C6DC04-48B4-47E9-A769-8E162F858181} = {F1874BEA-B196-4438-A1AF-4D5F2A489856}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1FAA268-693B-43A6-AEE1-8ED72E6A9993}

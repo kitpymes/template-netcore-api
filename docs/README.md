@@ -283,6 +283,21 @@ public static class CreateHost
 ```
 
 
+### Result
+
+```cs
+public class AspNetResult : IActionResult
+{
+    public AspNetResult(IResult result) => Result = result;
+
+    private IResult Result { get; }
+
+    public async Task ExecuteResultAsync(ActionContext context)
+    { }
+}
+```
+
+
 ### Spa
 
 ```cs
