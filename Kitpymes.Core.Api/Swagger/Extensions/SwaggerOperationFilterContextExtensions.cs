@@ -24,14 +24,19 @@ namespace Kitpymes.Core.Api
         /// <typeparam name="TAttribute">Tipo de atributo.</typeparam>
         /// <param name="context">Contexto del filtro de operacion.</param>
         /// <returns>IEnumerable{TAttribute}.</returns>
-        public static IEnumerable<TAttribute> GetControllerAndActionAttributes<TAttribute>(this OperationFilterContext context)
+        public static IEnumerable<TAttribute>? GetControllerAndActionAttributes<TAttribute>(this OperationFilterContext context)
             where TAttribute : Attribute
         {
             var controllerAttributes = context?.MethodInfo.DeclaringType?.GetTypeInfo().GetCustomAttributes<TAttribute>();
 
             var actionAttributes = context?.MethodInfo.GetCustomAttributes<TAttribute>();
 
-            return controllerAttributes.Concat(actionAttributes);
+            if (actionAttributes is null)
+            {
+                return null;
+            }
+
+            return controllerAttributes?.Concat(actionAttributes);
         }
     }
 }

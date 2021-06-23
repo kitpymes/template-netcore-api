@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "props", "props", "{B8F951C6
 		_config.yml = _config.yml
 		docs\props\Common.Build.props = docs\props\Common.Build.props
 		.github\workflows\dotnetcore.yml = .github\workflows\dotnetcore.yml
+		global.json = global.json
 		docs\props\Pack.Build.props = docs\props\Pack.Build.props
 		docs\props\tests.runsettings = docs\props\tests.runsettings
 	EndProjectSection
@@ -54,7 +55,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Api.ApiVersioning", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Api.Spa.Angular", "tests\Tests.Api.Spa.Angular\Tests.Api.Spa.Angular.csproj", "{E7EF1B14-B8E9-4F11-BF01-7477DA7B8FDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Api.Result", "tests\Tests.Api.Result\Tests.Api.Result.csproj", "{40C6DC04-48B4-47E9-A769-8E162F858181}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Api.Result", "tests\Tests.Api.Result\Tests.Api.Result.csproj", "{40C6DC04-48B4-47E9-A769-8E162F858181}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -50,16 +50,18 @@ namespace Kitpymes.Core.Api
 
                 if (httpContext.User.ToIsAuthenticated())
                 {
-                    var settings = (AppUserSettings)httpContext.RequestServices.GetService(typeof(AppUserSettings));
+                    var appUserSettings = httpContext.RequestServices.GetService(typeof(AppUserSettings));
+
+                    var settings = appUserSettings is null ? null : (AppUserSettings)appUserSettings;
 
                     if (settings?.Enabled == true)
                     {
                         AppSession.User = httpContext.User.ToGet<UserSession>(nameof(UserSession));
                     }
                 }
-            }
 
-            await RequestDelegate(httpContext).ConfigureAwait(false);
+                await RequestDelegate(httpContext).ConfigureAwait(false);
+            }
         }
     }
 }

@@ -1,3 +1,6 @@
+# v.1.0.4
+- Se migra de la versión netcoreapp3 a net5 y se actualizan librerías.
+
 # v.1.0.3
 - Se agrega el proyecto Result, para devolver resultados de las apis.
 

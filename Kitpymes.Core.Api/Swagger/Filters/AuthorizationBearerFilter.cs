@@ -23,7 +23,7 @@ namespace Kitpymes.Core.Api
         {
             var authorizeAttributes = context.GetControllerAndActionAttributes<AuthorizeAttribute>();
 
-            if (authorizeAttributes.Any())
+            if (authorizeAttributes is not null && authorizeAttributes.Any())
             {
                 var policies = authorizeAttributes.Select(attr => attr.Policy).Distinct().ToList();
 

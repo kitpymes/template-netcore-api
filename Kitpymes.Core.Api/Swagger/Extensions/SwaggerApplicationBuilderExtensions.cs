@@ -57,7 +57,7 @@ namespace Kitpymes.Core.Api
                             });
                     */
 
-                    apiVersionDescriptionProvider
+                    apiVersionDescriptionProvider?
                         .ApiVersionDescriptions
                         .ToList()
                         .ForEach(description =>

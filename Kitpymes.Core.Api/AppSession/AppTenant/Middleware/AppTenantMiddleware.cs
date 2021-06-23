@@ -48,7 +48,9 @@ namespace Kitpymes.Core.Api
 
                 if (subdomain != "localhost")
                 {
-                    var settings = (AppTenantSettings)httpContext.RequestServices.GetService(typeof(AppTenantSettings));
+                    var appTenantSettings = httpContext.RequestServices.GetService(typeof(AppTenantSettings));
+
+                    var settings = appTenantSettings is null ? null : (AppTenantSettings)appTenantSettings;
 
                     if (settings?.Enabled == true)
                     {

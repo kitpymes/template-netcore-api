@@ -68,7 +68,7 @@ namespace Kitpymes.Core.Api
                                    .AddFilter("Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware", LogLevel.Error)
                                    .AddFilter("System", LogLevel.Error)
                                    .AddFilter("Console", LogLevel.Error)
-                                   .AddConsole(x =>
+                                   .AddSimpleConsole(x =>
                                     {
                                         x.TimestampFormat = "[yyyy/MM/dd] hh:mm:ss:\r\n\r\n";
                                     });
