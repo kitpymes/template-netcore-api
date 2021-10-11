@@ -266,9 +266,13 @@ public class AppUserSettings
 ### Host
 
 ```cs
-public static class CreateHost
+public static class InitHost
 {
     public static async Task RunSimpleAsync<TStartup>(string[] args)
+        where TStartup : class
+    { }
+
+    public static IHost Build<TStartup>(string[] args)
         where TStartup : class
     { }
 
