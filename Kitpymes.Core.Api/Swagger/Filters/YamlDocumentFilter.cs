@@ -28,9 +28,7 @@ namespace Kitpymes.Core.Api
         /// </summary>
         /// <param name="hostingEnvironment">Proporciona información sobre el entorno de alojamiento web que se ejecuta una aplicación.</param>
         public YamlDocumentFilter(IWebHostEnvironment hostingEnvironment)
-        {
-            HostingEnvironment = hostingEnvironment;
-        }
+        => HostingEnvironment = hostingEnvironment;
 
         private IWebHostEnvironment HostingEnvironment { get; }
 

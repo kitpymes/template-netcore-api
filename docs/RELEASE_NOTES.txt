@@ -1,3 +1,8 @@
+# v.1.0.5
+- Se agrega un nuevo filtro para swagger "SupportedLanguagesFilter" para mostrar los lenguajes soportados.
+- Se agrega un nuevo inicio de host "Build<TStartup>()".
+- Se actualizan librerías.
+
 # v.1.0.4
 - Se migra de la versión netcoreapp3 a net5 y se actualizan librerías.
 

@@ -23,9 +23,7 @@ namespace Kitpymes.Core.Api
         /// </summary>
         /// <param name="options">Configuración del ApiExplorer.</param>
         public ApiExplorerDocumentFilter(IOptions<ApiExplorerOptions> options)
-        {
-            ApiExplorerOptions = options?.Value;
-        }
+        => ApiExplorerOptions = options?.Value;
 
         private ApiExplorerOptions? ApiExplorerOptions { get; }
 

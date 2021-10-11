@@ -14,19 +14,19 @@ namespace Tests.Api.Host
                 // Host simple
                 if (args[0] == "Simple")
                 {
-                    await CreateHost.RunSimpleAsync<Startup>(args);
+                    await InitHost.RunSimpleAsync<Startup>(args);
                 }
 
                 // Host con logeo de errores
                 if (args[0] == "Default")
                 {
-                    await CreateHost.RunAsync<Startup>(args);
+                    await InitHost.RunAsync<Startup>(args);
                 }
 
                 // Host custom
                 if (args[0] == "Custom")
                 {
-                    await CreateHost.Custom<Startup>(args)
+                    await InitHost.Custom<Startup>(args)
                         .ConfigureLogging((context, logging) => logging.AddDebug().SetMinimumLevel(LogLevel.Trace))
                         .Build()
                         .RunAsync();

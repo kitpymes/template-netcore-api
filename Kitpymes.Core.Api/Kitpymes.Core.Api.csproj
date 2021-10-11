@@ -4,18 +4,22 @@
   <Import Project="$(SolutionDir)docs/props/Pack.Build.props" Condition="Exists('$(SolutionDir)docs/props/Pack.Build.props')" />
 
   <ItemGroup>
-    <PackageReference Include="Kitpymes.Core.Shared" Version="1.2.2" />
+    <PackageReference Include="Kitpymes.Core.Shared" Version="1.2.3" />
     <PackageReference Include="Kitpymes.Core.Security" Version="1.0.4" />
-    <PackageReference Include="Kitpymes.Core.Entities" Version="1.0.3" />
+    <PackageReference Include="Kitpymes.Core.Entities" Version="1.0.6" />
     <PackageReference Include="Kitpymes.Core.Logger" Version="1.1.0" />
   </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.7" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
-    <PackageReference Include="YamlDotNet" Version="11.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.10" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.2" />
+    <PackageReference Include="YamlDotNet" Version="11.2.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Update="Microsoft.VisualStudio.Threading.Analyzers" Version="17.0.63" />
   </ItemGroup>
 
 </Project>

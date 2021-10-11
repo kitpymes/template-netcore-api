@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CreateHost.cs" company="Kitpymes">
+// <copyright file="InitHost.cs" company="Kitpymes">
 // Copyright (c) Kitpymes. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project docs folder for full license information.
 // </copyright>
@@ -27,7 +27,7 @@ namespace Kitpymes.Core.Api
     /// <remarks>
     /// <para>En esta clase se pueden agregar todos los inicios por defecto de la app.</para>
     /// </remarks>
-    public static class CreateHost
+    public static class InitHost
     {
         /// <summary>
         /// Clase de inicio por defecto de la app.
@@ -45,18 +45,20 @@ namespace Kitpymes.Core.Api
         /// <typeparam name="TStartup">Clase de configuración de la app.</typeparam>
         /// <param name="args">Argumentos de comando.</param>
         /// <returns>Representa la operación asincrónica.</returns>
-        public static async Task RunAsync<TStartup>(string[] args)
+        public static IHost Build<TStartup>(string[] args)
             where TStartup : class
         {
             var logger = Log
                 .UseSerilog(serilog => serilog.AddConsole().AddFile("Logs/start_host/.log"))
-                .CreateLogger(nameof(CreateHost));
+                .CreateLogger(nameof(InitHost));
+
+            IHost host = null!;
 
             try
             {
                 logger.Info("Started host...\r\n");
 
-                await Custom<TStartup>(args)
+                host = Custom<TStartup>(args)
                     .ConfigureWebHostDefaults(builder =>
                     {
                         builder
@@ -69,17 +71,16 @@ namespace Kitpymes.Core.Api
                                    .AddFilter("System", LogLevel.Error)
                                    .AddFilter("Console", LogLevel.Error)
                                    .AddSimpleConsole(x =>
-                                    {
-                                        x.TimestampFormat = "[yyyy/MM/dd] hh:mm:ss:\r\n\r\n";
-                                    });
+                                   {
+                                       x.TimestampFormat = "[yyyy/MM/dd] hh:mm:ss:\r\n\r\n";
+                                   });
                             });
                     })
                     .UseDefaultServiceProvider((context, options) =>
                     {
                         options.ValidateOnBuild = context.HostingEnvironment.IsDevelopment();
                     })
-                    .Build()
-                    .RunAsync();
+                    .Build();
             }
             catch (Exception ex)
             {
@@ -92,15 +93,27 @@ namespace Kitpymes.Core.Api
                     logger.Info($"An error occurred, press ENTER to finish host...\r\n");
 
                     Console.ReadLine();
-
-                    return;
                 }
+                else
+                {
+                    logger.Info("An error occurred, Stopping host...\r\n");
 
-                logger.Info("An error occurred, Stopping host...\r\n");
-
-                await Task.Delay(10000);
+                    _ = Task.Delay(10000);
+                }
             }
+
+            return host;
         }
+
+        /// <summary>
+        /// Clase de inicio por defecto de la app.
+        /// </summary>
+        /// <typeparam name="TStartup">Clase de configuración de la app.</typeparam>
+        /// <param name="args">Argumentos de comando.</param>
+        /// <returns>Representa la operación asincrónica.</returns>
+        public static async Task RunAsync<TStartup>(string[] args)
+            where TStartup : class
+        => await Build<TStartup>(args).RunAsync();
 
         /// <summary>
         /// Clase de inicio por defecto de la app.
