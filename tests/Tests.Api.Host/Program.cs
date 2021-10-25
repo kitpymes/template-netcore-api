@@ -12,15 +12,15 @@ namespace Tests.Api.Host
             if (args?.Length > 0)
             {
                 // Host simple
-                if (args[0] == "Simple")
-                {
-                    await InitHost.RunSimpleAsync<Startup>(args);
-                }
-
-                // Host con logeo de errores
-                if (args[0] == "Default")
+                if (args[0] == "Run")
                 {
                     await InitHost.RunAsync<Startup>(args);
+                }
+
+                // Host customizado
+                if (args[0] == "Build")
+                {
+                    await InitHost.Build<Startup>(args).RunAsync();
                 }
 
                 // Host custom

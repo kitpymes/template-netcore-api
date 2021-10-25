@@ -268,15 +268,11 @@ public class AppUserSettings
 ```cs
 public static class InitHost
 {
-    public static async Task RunSimpleAsync<TStartup>(string[] args)
+    public static async Task RunAsync<TStartup>(string[] args)
         where TStartup : class
     { }
 
     public static IHost Build<TStartup>(string[] args)
-        where TStartup : class
-    { }
-
-    public static async Task RunAsync<TStartup>(string[] args)
         where TStartup : class
     { }
 
@@ -452,6 +448,17 @@ public sealed class DefaultValuesFilter : IOperationFilter
 ```cs
 public sealed class StatusCodesFilter : IOperationFilter
 {
+    public void Apply(OpenApiOperation operation, OperationFilterContext context)
+    { }
+}
+```
+
+```cs
+public sealed class SupportedLanguagesFilter : IOperationFilter
+{
+    public SupportedLanguagesFilter(IServiceProvider serviceProvider) 
+    { }
+
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     { }
 }

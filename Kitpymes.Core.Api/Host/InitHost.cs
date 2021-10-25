@@ -30,17 +30,17 @@ namespace Kitpymes.Core.Api
     public static class InitHost
     {
         /// <summary>
-        /// Clase de inicio por defecto de la app.
+        /// Clase de inicio del host, utilizada para inicios rápidos sin configuraciones.
         /// </summary>
         /// <typeparam name="TStartup">Clase de configuración de la app.</typeparam>
         /// <param name="args">Argumentos de comando.</param>
         /// <returns>Representa la operación asincrónica.</returns>
-        public static async Task RunSimpleAsync<TStartup>(string[] args)
+        public static async Task RunAsync<TStartup>(string[] args)
             where TStartup : class
         => await Custom<TStartup>(args).Build().RunAsync();
 
         /// <summary>
-        /// Clase de inicio por defecto de la app.
+        /// Clase de inicio del host, utilizada para proyectos, configurada con logeo de errores.
         /// </summary>
         /// <typeparam name="TStartup">Clase de configuración de la app.</typeparam>
         /// <param name="args">Argumentos de comando.</param>
@@ -62,6 +62,10 @@ namespace Kitpymes.Core.Api
                     .ConfigureWebHostDefaults(builder =>
                     {
                         builder
+                            .ConfigureAppConfiguration((hostingContext, config) =>
+                            {
+                                config.AddCommandLine(args);
+                            })
                             .ConfigureLogging((context, logging) =>
                             {
                                 logging.ClearProviders()
@@ -106,17 +110,7 @@ namespace Kitpymes.Core.Api
         }
 
         /// <summary>
-        /// Clase de inicio por defecto de la app.
-        /// </summary>
-        /// <typeparam name="TStartup">Clase de configuración de la app.</typeparam>
-        /// <param name="args">Argumentos de comando.</param>
-        /// <returns>Representa la operación asincrónica.</returns>
-        public static async Task RunAsync<TStartup>(string[] args)
-            where TStartup : class
-        => await Build<TStartup>(args).RunAsync();
-
-        /// <summary>
-        /// Clase de inicio por defecto de la app.
+        /// Clase de inicio del host, utilizada para ser customizada, no tiene ninguna configuración.
         /// </summary>
         /// <typeparam name="TStartup">Clase de configuración de la app.</typeparam>
         /// <param name="args">Argumentos de comando.</param>
@@ -131,10 +125,7 @@ namespace Kitpymes.Core.Api
                         .UseStartup<TStartup>()
                         .ConfigureKestrel(options => { })
                         .ConfigureServices((context, services) => { })
-                        .ConfigureAppConfiguration((hostingContext, config) =>
-                        {
-                            config.AddCommandLine(args);
-                        });
+                        .ConfigureAppConfiguration((hostingContext, config) => { });
                 });
     }
 }

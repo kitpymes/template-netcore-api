@@ -1,3 +1,7 @@
+# v.1.0.6
+- Se actualizan la clase de inicio de host "InitHost".
+- Se actualizan librerías.
+
 # v.1.0.5
 - Se agrega un nuevo filtro para swagger "SupportedLanguagesFilter" para mostrar los lenguajes soportados.
 - Se agrega un nuevo inicio de host "Build<TStartup>()".
