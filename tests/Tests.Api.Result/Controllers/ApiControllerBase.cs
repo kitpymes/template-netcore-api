@@ -8,6 +8,6 @@
     [Route("[controller]")]
     public abstract class ApiControllerBase<TController> : ControllerBase
     {
-        protected static AspNetResult ApiResult(IResult result) => new AspNetResult(result);
+        protected static AspNetResult ApiResult(IResult result) => new (result);
     }
 }

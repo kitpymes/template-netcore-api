@@ -6,7 +6,7 @@
   <ItemGroup>
     <PackageReference Include="Kitpymes.Core.Shared" Version="1.2.3" />
     <PackageReference Include="Kitpymes.Core.Security" Version="1.0.4" />
-    <PackageReference Include="Kitpymes.Core.Entities" Version="1.0.7" />
+    <PackageReference Include="Kitpymes.Core.Entities" Version="1.0.9" />
     <PackageReference Include="Kitpymes.Core.Logger" Version="1.1.0" />
   </ItemGroup>
   

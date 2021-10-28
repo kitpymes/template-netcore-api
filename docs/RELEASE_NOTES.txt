@@ -1,3 +1,6 @@
+# v.1.0.7
+- Se actualiza la funcionalidad relacionada con la sesión de la aplicación.
+
 # v.1.0.6
 - Se actualizan la clase de inicio de host "InitHost".
 - Se actualizan librerías.
